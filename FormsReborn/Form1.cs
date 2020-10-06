@@ -56,7 +56,7 @@ namespace FormsReborn
             this.Controls.Add(tree);
         }
 
-        string text = File.ReadAllText(@"C:\Users\opilane\source\repos\Konovalov\file.txt");
+        
         private void Tree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Text == "Nupp/Button")
@@ -100,6 +100,7 @@ namespace FormsReborn
             }
             else if (e.Node.Text == "Tekstkast/Textbox")
             {
+                string text = File.ReadAllText(@"C:\Users\opilane\source\repos\Konovalov\file.txt");
                 txt_box = new TextBox();
                 txt_box.Multiline = true;
                 txt_box.Text = text;
