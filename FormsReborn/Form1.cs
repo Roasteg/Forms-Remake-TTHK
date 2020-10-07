@@ -137,7 +137,7 @@ namespace FormsReborn
             }
             else if (e.Node.Text == "VaheKaardid/TabControl")
             {
-               var y = MessageBox.Show("Mis vahe?","1");
+               var y = MessageBox.Show("Mis vahe?");
                 tabControl = new TabControl();
                 tabControl.Location = new Point(300, 400);
                 tabControl.Size = new Size(200, 100);
@@ -151,7 +151,7 @@ namespace FormsReborn
             }
             else if (e.Node.Text == "MessageBox")
             {
-                MessageBox.Show("MessageBox", "Kõige lihtsam aken");
+                MessageBox.Show("MessageBox", "Kõige lihtsam aken",);
                 var answer = MessageBox.Show("Tere", "Aken nupudega", MessageBoxButtons.YesNo);
                 if (answer == DialogResult.Yes)
                 {
