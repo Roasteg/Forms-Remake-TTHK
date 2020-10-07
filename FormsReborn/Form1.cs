@@ -8,6 +8,8 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
+
 
 namespace FormsReborn
 {
@@ -19,6 +21,9 @@ namespace FormsReborn
         CheckBox box_lbl, box_btn;
         RadioButton rad, rad2;
         TextBox txt_box;
+        PictureBox pic;
+        TabControl tabControl;
+        MessageBox mbox;
         public Form1()
         {
             this.Height = 500;
@@ -35,6 +40,9 @@ namespace FormsReborn
             tn.Nodes.Add(new TreeNode("Märkeruut/Checkbox"));
             tn.Nodes.Add(new TreeNode("Radionupp/Radiobutton"));
             tn.Nodes.Add(new TreeNode("Tekstkast/Textbox"));
+            tn.Nodes.Add(new TreeNode("PildiKast/PictureBox"));
+            tn.Nodes.Add(new TreeNode("VaheKaardid/TabControl"));
+            tn.Nodes.Add(new TreeNode("MessageBox"));
             //button
             btn = new Button();
             btn.Text = "Vajuta siia";
@@ -56,7 +64,7 @@ namespace FormsReborn
             this.Controls.Add(tree);
         }
 
-        
+
         private void Tree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Text == "Nupp/Button")
@@ -100,7 +108,15 @@ namespace FormsReborn
             }
             else if (e.Node.Text == "Tekstkast/Textbox")
             {
-                string text = File.ReadAllText(@"C:\Users\opilane\source\repos\Konovalov\file.txt");
+                string text;
+                try
+                {
+                    text = File.ReadAllText(@"C:\Users\opilane\source\repos\Konovalov\file.txt");
+                }
+                catch (FileNotFoundException exception)
+                {
+                    text = "Fail ei leitud";
+                }
                 txt_box = new TextBox();
                 txt_box.Multiline = true;
                 txt_box.Text = text;
@@ -108,6 +124,49 @@ namespace FormsReborn
                 txt_box.Height = 200;
                 txt_box.Location = new Point(300, 300);
                 this.Controls.Add(txt_box);
+            }
+            else if (e.Node.Text == "PildiKast/PictureBox")
+            {
+                pic = new PictureBox();
+                pic.Image = new Bitmap(@"C:\Users\opilane\Desktop\hacker.png");
+                pic.Location = new Point(300, 200);
+                pic.Size = new Size(100, 100);
+                pic.SizeMode = PictureBoxSizeMode.Zoom;
+                pic.BorderStyle = BorderStyle.Fixed3D;
+                this.Controls.Add(pic);
+            }
+            else if (e.Node.Text == "VaheKaardid/TabControl")
+            {
+               var y = MessageBox.Show("Mis vahe?","1");
+                tabControl = new TabControl();
+                tabControl.Location = new Point(300, 400);
+                tabControl.Size = new Size(200, 100);
+                TabPage page1 = new TabPage("Esimene");
+                TabPage page2 = new TabPage("Teine");
+                TabPage page3 = new TabPage("Kolmas");
+                tabControl.Controls.Add(page1);
+                tabControl.Controls.Add(page2);
+                tabControl.Controls.Add(page3);
+                this.Controls.Add(tabControl);
+            }
+            else if (e.Node.Text == "MessageBox")
+            {
+                MessageBox.Show("MessageBox", "Kõige lihtsam aken");
+                var answer = MessageBox.Show("Tere", "Aken nupudega", MessageBoxButtons.YesNo);
+                if (answer == DialogResult.Yes)
+                {
+                    string text = Interaction.InputBox("Sisesta tekst", "InputBox", "Mingi tekst");
+                    var qst = MessageBox.Show("Tere", "Salvesta teks?", MessageBoxButtons.YesNo);
+                    if (qst==DialogResult.Yes)
+                    {
+                        lbl.Text = text;
+                        this.Controls.Add(lbl);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ok");
+                    }
+                }
             }
         }
 
